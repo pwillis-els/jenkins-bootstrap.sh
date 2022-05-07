@@ -2,7 +2,7 @@
 
 ## About
 
-This is a Bourne shell script that will configure, build, install, and run a Jenkins server in a Docker container. Everything you need to get Jenkins up and running is included in this script.
+A Bourne shell script that will configure, build, install, and run a Jenkins server in a Docker container. Everything you need to get Jenkins up and running is included in this script.
 
 ---
 
@@ -133,8 +133,8 @@ That file also attempts to create some directories *before* starting Jenkins, an
    By default, the `JENKINS_HOME` directory Jenkins writes files to contains secrets, configuration, plugins, and other files which may need to change before the next time Jenkins is started. If these files aren't removed before Jenkins starts, they could conflict with the *Configuration as Code* you use, or cause conflicts due to incompatible versions of files between upgrades of Jenkins. To resolve these issues, we simply don't persist those files to disk. Only the `logs`, `jobs`, and `workspace` gets persisted. This way you can keep the job history and write files to a fast disk, and Jenkins doesn't blow up next time you restart it.
 
  - If a file pointed to by environment variable `SVC_WRAP_ENVRC` (default: `/etc/bootstrap/env`) exists, it is considered a shell script, sourced, all environment variables are `export`ed, and any lines with a '=' are considered a KEY=VALUE pair. The key name and the current value in the shell are printed out to a new temporary file, and that new temporary file is loaded into Docker with the `--env-file=` option. All of this magic is performed so that we can interpolate some variables from a file and pass them to Docker at run-time.
-  
-  If `SVC_WRAP_ENVRC`'s value is empty (""), the above logic doesn't happen.
+   
+   If `SVC_WRAP_ENVRC`'s value is empty (""), the above logic doesn't happen.
 
  - The `/run/secrets` directory is volume-mounted into the container. This allows the *Configuration as Code* plugin to take advantage of any secrets you keep on your host.
 
